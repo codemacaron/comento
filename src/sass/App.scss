@@ -1,0 +1,11 @@
+// @import 'partials/fonts';
+@import 'partials/normalize';
+@import 'partials/reset';
+@import 'partials/mixin';
+@import 'partials/grid';
+@import 'partials/base';
+@import 'partials/color';
+@import 'partials/fonts';
+
+$border: 1px solid $color-border;
+$border-point: 1px solid $color-point;
