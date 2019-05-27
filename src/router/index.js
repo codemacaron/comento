@@ -17,6 +17,11 @@ export default new Router({
       path: '/Detail',
       name: 'Detail',
       component: () => import('@/components/Detail')
+    },
+    {
+      path: '/Join',
+      name: 'Join',
+      component: () => import('@/components/Join')
     }
   ]
 })

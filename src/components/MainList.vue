@@ -89,6 +89,7 @@ export default {
     },
     // 리스트 불러오기
     updateListAll (payload) {
+      this.$store.dispatch('setLoading', 'show')
       let stategGtTextWhatIsPost = this.$store.getters.getTextWhatIsPost
       let updateListAllPayload = {
         'type': payload,
@@ -98,6 +99,7 @@ export default {
       this.$store.dispatch('setLists', updateListAllPayload).then(() => {
         setTimeout(() => {
           this.$store.dispatch('setMixPost', updateListAllPayload.whatIsPost)
+          this.$store.dispatch('setLoading', 'noshow')
         }, 2000)
       })
       this.saveLocalStorage()

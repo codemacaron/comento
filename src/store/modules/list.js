@@ -62,6 +62,7 @@ export default {
     whatIsPost: {},
     // 리스트를 더이상 가져올 수 없으면 false가 된다.
     stopList: true,
+    loading: false,
     textWhatIsPost: {
       'asc': true,
       'desc': false,
@@ -104,6 +105,9 @@ export default {
     },
     getStopList (state) {
       return state.stopList
+    },
+    getLoading (state) {
+      return state.loading
     }
   },
   // mutations
@@ -488,6 +492,14 @@ export default {
       } else {
         state.changePageState = false
       }
+    },
+    // 리스트 로딩
+    setLoading (state, payload) {
+      if (payload === 'show') {
+        state.loading = true
+      } else if (payload === 'noshow') {
+        state.loading = false
+      }
     }
   },
   // actions
@@ -694,6 +706,10 @@ export default {
     // 페이지 이동
     setChangePage ({commit}, payload) {
       commit('setChangePage', payload)
+    },
+    // 리스트 로딩
+    setLoading ({commit}, payload) {
+      commit('setLoading', payload)
     }
   }
 }

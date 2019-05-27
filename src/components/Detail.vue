@@ -75,9 +75,9 @@
           | 지금 가입하면 꿈꾸던 기업에 재직 중인 현직자와
           strong 익명
           | 으로 대화할 수 있습니다.
-        button.btn-facebook(type="button") 페이스북 계정으로 회원가입
-        button.btn-google(type="button") 구글 계정으로 회원가입
-        button.btn-naver(type="button") 네이버 계정으로 회원가입
+        button.btn-facebook(type="button" @click="onJoinPage()") 페이스북 계정으로 회원가입
+        button.btn-google(type="button" @click="onJoinPage()") 구글 계정으로 회원가입
+        button.btn-naver(type="button" @click="onJoinPage()") 네이버 계정으로 회원가입
         button.btn-later(type="button" @click="onJoin('close')") 나중에 하기
 
 </template>
@@ -118,6 +118,9 @@ export default {
           this.join = true
           break
       }
+    },
+    onJoinPage () {
+      this.$router.push({ name: 'Join' })
     }
   },
   mounted () {
@@ -125,11 +128,8 @@ export default {
     let detailAPI = 'https://comento.cafe24.com/detail.php?req_no=' + this.no
     // detail 받아오기
     axios.get(detailAPI).then((response) => {
-      console.log('detail :::: ', response.data.detail)
-      console.log('detail-replies :::: ', response.data.detail.replies)
       this.post = response.data.detail.article
       this.replies = response.data.detail.replies
-      console.log('this.replies :::: ', this.replies)
     }).catch(error => console.error('실행실패 ::: ', error.message))
   }
 }
