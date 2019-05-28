@@ -1,17 +1,15 @@
 <template lang="pug">
   div.cover
-    h1 작성한 우수자의 모습 중 한 가지와 관련된 나의 강점을 하나 선택하세요.
-    ul
-      li(v-for="(list, index) in getAdvantageList")
-        input#advantage1(type="checkbox" name="advantage" :id="'advantage' + index" :checked="list.value")
-        label(:for="'advantage' + index") {{list.text}}
+    h1 당신은 능동성이(가) 뛰어나다는 것을 아래와 같이 정의하고 있습니다.
+    .editor-area
+      | text 붙을 예정
     div
-      button(type="button" v-show="!getIsFirstPage") 이전단계
-      button(type="button") 저장 후 다음단계
+      button(type="button" @click="setNextPage('isSecondPage')") 이전단계
+      button(type="button" @click="setNextPage('isThirdPage')") 저장 후 다음단계
 </template>
 
 <script scope>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Join',
@@ -26,10 +24,9 @@ export default {
     ])
   },
   methods: {
-    // filter 팝업창
-    showPopup (payload) {
-      this.$store.dispatch('setResetList')
-    }
+    ...mapActions([
+      'setNextPage'
+    ])
   }
 }
 

@@ -5,7 +5,7 @@
       li(v-for="(list, index) in getAdvantageList")
         input#advantage1(type="checkbox" name="advantage" :id="'advantage' + index" :checked="list.value" @click="changeValue($event)")
         label(:for="'advantage' + index") {{list.text}}
-    p 강점을 선택해주세요! {{this.getIsHaveValue}}
+    p 강점을 선택해주세요! {{getIsHaveValue}}
     div
       button(type="button" @click="setNextPage('isSecondPage')") 저장 후 다음단계
 </template>
@@ -17,12 +17,12 @@ export default {
   name: 'Join',
   data () {
     return {
-      getIsHaveValue: false
     }
   },
   computed: {
     ...mapGetters([
-      'getAdvantageList'
+      'getAdvantageList',
+      'getIsHaveValue'
     ])
   },
   methods: {
@@ -34,9 +34,6 @@ export default {
     ...mapActions([
       'setNextPage'
     ])
-  },
-  watch () {
-    this.getIsHaveValue = this.$store.getters.getIsHaveValue
   }
 }
 

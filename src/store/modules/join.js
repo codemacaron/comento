@@ -138,8 +138,6 @@ export default {
           for (var i = 0; i < advantageList.length; i++) {
             if (advantageList[i].value === true) {
               HaveValue = true
-              console.log('되니??', i)
-              console.log(HaveValue)
             }
           }
           if (HaveValue) {

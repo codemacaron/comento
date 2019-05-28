@@ -18,6 +18,7 @@ export default {
 
 <style lang="scss">
 @import "./sass/App";
+// @import "./assets/fontawesome/css/font-awesome.css";
 @font-face {
   font-family: "Nanum Square";
   src: url("./assets/font/NanumSquareR.eot");
