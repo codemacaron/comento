@@ -43,6 +43,18 @@ export default {
   font-weight: 700;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.a11y-hidden {
+  @extend %readable-hidden;
+}
+
 #app {
   font-family: "Nanum Square", "Avenir", Helvetica, Arial, sans-serif;
   text-align: left;
@@ -74,23 +86,92 @@ button.btn-goto-top {
   }
 }
 
+main {
+  border: $border;
+  padding: 50px;
+}
+
+.error-msg {
+  margin-top: 50px;
+  p {
+    text-align: center;
+    font-weight: bold;
+    font-size: $font-l;
+    color: $color-point;
+  }
+}
+.point-msg {
+  margin: 10px 0;
+  text-align: left;
+  font-weight: bold;
+  font-size: $font-s;
+  color: $color-lighter;
+}
+.group-btn {
+  margin-top: 50px;
+  text-align: center;
+  button {
+    display: inline-block;
+    width: auto;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    border: 0 none;
+    &.next{
+      background: $color-white;
+      border: $border-point;
+      color: $color-point;
+      margin-right: 10px;
+      &:hover {
+        border: $border-point-dark;
+        background: $color-white;
+        color: $color-point-dark;
+      }
+    }
+    &.prev{
+      background: $color-point;
+      border: $border-point;
+      color: $color-white;
+      &:hover {
+        border: $border-point-dark;
+        background: $color-point-dark;
+      }
+    }
+
+  }
+}
+
 @include mobile {
   button.btn-goto-top {
     right: 10px;
     bottom: 10px;
   }
 }
+
 @include tablet {
   button.btn-goto-top {
     right: 10px;
     bottom: 10px;
   }
 }
+
 @include desktop {
   button.btn-goto-top {
     left: 50%;
     bottom: 40px;
     transform: translateX(520px);
+  }
+  main {
+    width: 1000px;
+    margin: 100px auto;
+  }
+}
+
+@include breakpoint(0px, 768px) {
+  main {
+    box-sizing: border-box;
+    width: 98%;
+    margin: 10px auto;
   }
 }
 </style>

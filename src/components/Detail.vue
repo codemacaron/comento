@@ -120,7 +120,7 @@ export default {
       }
     },
     onJoinPage () {
-      this.$router.push({ name: 'Join' })
+      this.$router.push({ name: 'JoinPage1' })
     }
   },
   mounted () {
@@ -137,26 +137,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../sass/App.scss";
+@import "./../sass/partials/_fonts";
+@import "./../sass/partials/_color";
+@import "./../sass/partials/_mixin";
 // 변수 모음
 $height: 50px;
-* {
-  box-sizing: border-box;
-}
-
-.a11y-hidden {
-  @extend %readable-hidden;
-}
-
-[v-cloak] {
-  display: none;
-}
-
-main {
-  border: $border;
-  padding: 50px;
-}
-
 .cover {
   border-top: 2px solid $color-border;
   border-bottom: 2px solid $color-border;
@@ -181,7 +166,7 @@ main {
       padding: 10px;
       margin-bottom: 10px;
       border-bottom: $border;
-      font-size: $font-l;
+      font-size: $font-xl;
       font-weight: bold;
     }
     > ul {
@@ -372,7 +357,7 @@ input[type="radio"] {
     transform: translate(-50%, -50%);
     background: $color-white;
     h1 {
-      font-size: $font-l;
+      font-size: $font-xl;
       text-align: center;
     }
     p {
@@ -423,21 +408,6 @@ input[type="radio"] {
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
-  }
-}
-
-@include desktop {
-  main {
-    width: 1000px;
-    margin: 100px auto;
-  }
-}
-
-@include breakpoint(0px, 1200px) {
-  main {
-    box-sizing: border-box;
-    width: 98%;
-    margin: 10px auto;
   }
 }
 

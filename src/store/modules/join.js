@@ -2,12 +2,6 @@
 export default {
   // state
   state: {
-    try: false,
-    isFirstPage: true,
-    isSecondPage: false,
-    isThirdPage: false,
-    isFourthPage: false,
-    isFifthPage: false,
     advantageList: [
       {
         'text': '책임감',
@@ -67,28 +61,14 @@ export default {
       }
     ],
     advantageListText: [],
-    isHaveValue: true
+    isHaveValue: false,
+    edit: {
+      title: '',
+      content: ''
+    }
   },
   // getters
   getters: {
-    getTry (state) {
-      return state.try
-    },
-    getIsFirstPage (state) {
-      return state.isFirstPage
-    },
-    getIsSecondPage (state) {
-      return state.isSecondPage
-    },
-    getIsThirdPage (state) {
-      return state.isThirdPage
-    },
-    getIsFourthPage (state) {
-      return state.isFourthPage
-    },
-    getIsFifthPage (state) {
-      return state.isFifthPage
-    },
     getAdvantageList (state) {
       return state.advantageList
     },
@@ -101,15 +81,9 @@ export default {
   },
   // mutations
   mutations: {
-    // 리스트 로딩
-    setTry (state, payload) {
-      if (payload === 'show') {
-        state.try = true
-      } else if (payload === 'noshow') {
-        state.try = false
-      }
-    },
+    // 강점 리스트에서 체크된 상황 변화
     setChangeAdvantage (state, payload) {
+      state.isHaveValue = false
       payload = payload * 1
       let advantageList = state.advantageList
       for (var i = 0; i < advantageList.length; i++) {
@@ -121,69 +95,33 @@ export default {
           }
         }
       }
+      for (let item in advantageList) {
+        if (advantageList[item].value === true) {
+          state.isHaveValue = true
+        }
+      }
     },
-    setNextPage (state, payload) {
-      let HaveValue = state.isHaveValue
+    // 값의 변화
+    setChangeContent (state, payload) {
       switch (payload) {
-        case 'isFirstPage':
-          state.isFirstPage = true
-          state.isSecondPage = false
-          state.isThirdPage = false
-          state.isFourthPage = false
-          state.isFifthPage = false
+        case 'true':
+          state.isHaveValue = true
           break
-        case 'isSecondPage':
-          let advantageList = state.advantageList
-          HaveValue = false
-          for (var i = 0; i < advantageList.length; i++) {
-            if (advantageList[i].value === true) {
-              HaveValue = true
-            }
-          }
-          if (HaveValue) {
-            HaveValue = true
-            state.isFirstPage = false
-            state.isSecondPage = true
-            state.isThirdPage = false
-            state.isFourthPage = false
-            state.isFifthPage = false
-          }
-          break
-        case 'isThirdPage':
-          state.isFirstPage = false
-          state.isSecondPage = false
-          state.isThirdPage = true
-          state.isFourthPage = false
-          state.isFifthPage = false
-          break
-        case 'isFourthPage':
-          state.isFirstPage = false
-          state.isSecondPage = false
-          state.isThirdPage = false
-          state.isFourthPage = true
-          state.isFifthPage = false
-          break
-        case 'isFifthPage':
-          state.isFirstPage = false
-          state.isSecondPage = false
-          state.isThirdPage = false
-          state.isFourthPage = false
-          state.isFifthPage = true
+        case 'false':
+          state.isHaveValue = false
           break
       }
     }
   },
   // actions
   actions: {
-    // 리스트 로딩
-    setTry ({commit}, payload) {
-      commit('setTry', payload)
-    },
+    // 강점 리스트에서 체크된 상황 변화
     setChangeAdvantage ({commit}, payload) {
       commit('setChangeAdvantage', payload)
     },
-    setNextPage ({commit}, payload) {
-      commit('setNextPage', payload)
+    // 값의 변화
+    setChangeContent ({commit}, payload) {
+      commit('setChangeAdvantage', payload)
     }
   }
 }

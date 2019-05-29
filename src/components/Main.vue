@@ -177,32 +177,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../sass/App.scss";
+@import "./../sass/partials/_fonts";
+@import "./../sass/partials/_color";
+@import "./../sass/partials/_mixin";
 // 변수 모음
 $height: 50px;
 $top-height: calc(50px * 2);
 $padding: 10px;
 $double-padding: calc(10px * 2);
-* {
-  box-sizing: border-box;
-}
-.a11y-hidden {
-  @extend %readable-hidden;
-}
-[v-cloak] {
-  display: none;
-}
-main {
-  width: 1000px;
-  margin: 100px auto;
-  border: $border;
-  padding: 50px;
-}
-.cover {
-  @include clearfix;
-  padding: 0 0 10px 0;
-  border-bottom: $border;
-}
+
 .filter-category {
   position: fixed;
   left: 0;
@@ -300,7 +283,7 @@ button {
       width: $height;
       height: $height;
       background: #fff;
-      font-size: $font-l;
+      font-size: $font-xl;
       line-height: $height;
       text-align: center;
     }
@@ -400,11 +383,6 @@ label {
 }
 
 @include mobile {
-  main {
-    box-sizing: border-box;
-    width: 98%;
-    margin: 10px auto;
-  }
   .filter-category {
     > div {
       width: 90%;
@@ -420,17 +398,8 @@ label {
   }
 }
 @include tablet {
-  main {
-    box-sizing: border-box;
-    width: 98%;
-    margin: 10px auto;
-  }
 }
 @include desktop {
-  main {
-    width: 1000px;
-    margin: 100px auto;
-  }
 }
 @include breakpoint(768px, 999999px) {
   .filter-category {

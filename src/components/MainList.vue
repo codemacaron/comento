@@ -113,7 +113,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../sass/App.scss";
+@import "./../sass/partials/_fonts";
+@import "./../sass/partials/_color";
+@import "./../sass/partials/_mixin";
+@import "./../sass/partials/_base";
 // 변수 모음
 $height: 30px;
 $double-height: calc(30px * 2);
@@ -208,7 +211,7 @@ $double-padding: calc(10px * 2);
             > h1 {
               padding: $padding;
               color: $color-point;
-              font-size: $font-l;
+              font-size: $font-xl;
             }
             > p {
               padding: $padding;
@@ -224,7 +227,7 @@ $double-padding: calc(10px * 2);
           h1 {
             margin-bottom: 10px;
             color: $color-point;
-            font-size: $font-l;
+            font-size: $font-xl;
           }
           h2 {
             position: absolute;

@@ -19,9 +19,29 @@ export default new Router({
       component: () => import('@/components/Detail')
     },
     {
-      path: '/Join',
-      name: 'Join',
-      component: () => import('@/components/Join')
+      path: '/JoinPage1',
+      name: 'JoinPage1',
+      component: () => import('@/components/JoinPage1')
+    },
+    {
+      path: '/JoinPage2',
+      name: 'JoinPage2',
+      component: () => import('@/components/JoinPage2')
+    },
+    {
+      path: '/JoinPage3',
+      name: 'JoinPage3',
+      component: () => import('@/components/JoinPage3')
+    },
+    {
+      path: '/JoinPage4',
+      name: 'JoinPage4',
+      component: () => import('@/components/JoinPage4')
+    },
+    {
+      path: '/JoinPage5',
+      name: 'JoinPage5',
+      component: () => import('@/components/JoinPage5')
     }
   ]
 })
