@@ -170,6 +170,7 @@ $height: 50px;
       font-weight: bold;
     }
     > ul {
+      list-style: none;
       padding-bottom: 10px;
       padding-left: 10px;
       padding-right: 10px;
@@ -195,6 +196,8 @@ $height: 50px;
       font-size: $font-m;
     }
     > ul {
+      list-style: none;
+      padding-left: 0;
       margin-bottom: 10px;
       > li {
         padding-top: 10px;
@@ -202,6 +205,7 @@ $height: 50px;
         border-top: $border;
         border-bottom: $border;
         ul {
+          list-style: none;
           padding-left: 10px;
           padding-right: 10px;
           padding-bottom: 10px;

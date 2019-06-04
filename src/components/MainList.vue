@@ -5,9 +5,9 @@
       li(v-for="(post, index) in getMixList")
         .cover(v-if="post !== undefined")
           .link-list(v-if="0 !== (index+1)%4 || index === 0")
-            h2(v-show="post.category_no === '1'") Apple
-            h2(v-show="post.category_no === '2'") Banana
-            h2(v-show="post.category_no === '3'") Coconut
+            h2(v-show="post.category_no === 1") Apple
+            h2(v-show="post.category_no === 2") Banana
+            h2(v-show="post.category_no === 3") Coconut
             h3(v-show="post.no !== undefined") {{post.no}}
             h3(v-show="post.no === undefined") 번호가 없습니다.
             ul
@@ -123,6 +123,10 @@ $double-height: calc(30px * 2);
 $treble-height: calc(30px * 2);
 $padding: 10px;
 $double-padding: calc(10px * 2);
+ul{
+  list-style: none;
+  padding-left: 0;
+}
 * {
   box-sizing: border-box;
 }
@@ -151,6 +155,7 @@ $double-padding: calc(10px * 2);
             height: $height;
             box-sizing: border-box;
             padding: 0 $padding;
+            margin: 0;
             line-height: $height;
             border-bottom: $border;
             color: $color-light;
@@ -164,6 +169,7 @@ $double-padding: calc(10px * 2);
             width: 20%;
             height: $height;
             padding: 0 $padding;
+            margin: 0;
             line-height: $height;
             border-bottom: $border;
             color: $color-light;
@@ -210,11 +216,13 @@ $double-padding: calc(10px * 2);
             }
             > h1 {
               padding: $padding;
+              margin: 0;
               color: $color-point;
               font-size: $font-xl;
             }
             > p {
               padding: $padding;
+              margin: 0;
               color: $color-regular;
               font-size: $font-m;
             }
@@ -225,7 +233,7 @@ $double-padding: calc(10px * 2);
           display: block;
           padding-top: $height;
           h1 {
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
             color: $color-point;
             font-size: $font-xl;
           }
@@ -235,6 +243,7 @@ $double-padding: calc(10px * 2);
             top: 0;
             width: 80%;
             height: $height;
+            margin: 0;
             padding: 0 $padding;
             line-height: $height;
             color: $color-point;
@@ -242,6 +251,7 @@ $double-padding: calc(10px * 2);
             @extend %text-ellipsis;
           }
           p {
+            margin: 0;
             color: $color-regular;
             font-size: $font-m;
           }

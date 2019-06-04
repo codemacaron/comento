@@ -64,6 +64,8 @@ h1 {
 ul {
   display: flex;
   flex-flow: row wrap;
+  list-style: none;
+  padding-left: 0;
   li {
     width: 33.33%;
     margin-bottom: 10px;

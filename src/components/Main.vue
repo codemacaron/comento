@@ -205,12 +205,14 @@ $double-padding: calc(10px * 2);
       width: 100%;
       height: $height;
       padding: 0 $padding;
+      margin: 0;
       border-bottom: $border;
       line-height: $height;
       color: $color-point;
       font-size: $font-m;
     }
     > ul {
+      list-style: none;
       padding: $padding;
       margin-bottom: 20px;
       > li {
@@ -226,6 +228,7 @@ $double-padding: calc(10px * 2);
   float: right;
   > ul {
     @include clearfix;
+    list-style: none;
     > li {
       float: left;
       &::before {

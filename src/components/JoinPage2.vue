@@ -85,7 +85,7 @@ h1, h2 {
   font-weight: bold;
 }
 h1 {
-  line-height: 40px;
+  line-height: 50px;
   text-align: center;
   font-size: $font-xl;
   margin-bottom: 50px;
@@ -97,6 +97,7 @@ h1 {
       background: $color-point;
       color: $color-white;
       height: 40px;
+      line-height: 40px;
       border-radius: 40px;
       &:hover{
         background: $color-point-dark;
