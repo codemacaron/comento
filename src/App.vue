@@ -18,7 +18,6 @@ export default {
 
 <style lang="scss">
 @import "./sass/App";
-// @import "./assets/fontawesome/css/font-awesome.css";
 @font-face {
   font-family: "Nanum Square";
   src: url("./assets/font/NanumSquareR.eot");
@@ -100,6 +99,7 @@ main {
     color: $color-point;
   }
 }
+
 .point-msg {
   margin: 10px 0;
   text-align: left;
@@ -107,6 +107,7 @@ main {
   font-size: $font-s;
   color: $color-lighter;
 }
+
 .group-btn {
   margin-top: 50px;
   text-align: center;
@@ -138,6 +139,61 @@ main {
       }
     }
 
+  }
+}
+
+h1.join-title {
+  line-height: 50px;
+  text-align: center;
+  font-size: $font-xl;
+  margin-bottom: 50px;
+  font-weight: bold;
+  strong {
+    > span {
+      display: inline-block;
+      padding: 0 20px;
+      margin: 0 5px;
+      background: $color-point;
+      color: $color-white;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 40px;
+      &:hover{
+        background: $color-point-dark;
+        cursor: default;
+      }
+    }
+  }
+}
+
+h2.join-title {
+  line-height: 30px;
+  margin-bottom: 10px;
+  font-size: $font-l;
+  font-weight: bold;
+  &.text-right{
+    text-align: right;
+  }
+  strong {
+    span {
+      border-bottom: $border;
+      padding-bottom: 2px;
+      &::after {
+        content: ",";
+        display: inline-block;
+        margin-right: 10px;
+      }
+    }
+    &.only-one{
+      margin-left: 10px;
+      background: greenyellow;
+      span {
+        &::after {
+          content: "";
+          margin-right: 10px;
+        }
+      }
+    }
   }
 }
 

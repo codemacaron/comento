@@ -63,7 +63,6 @@ export default {
     advantageListText: [],
     isHaveValue: false,
     edit: {
-      title: '',
       content: ''
     }
   },
@@ -77,6 +76,9 @@ export default {
     },
     getIsHaveValue (state) {
       return state.isHaveValue
+    },
+    getEdit (state) {
+      return state.edit
     }
   },
   // mutations
@@ -111,6 +113,11 @@ export default {
           state.isHaveValue = false
           break
       }
+    },
+    // edit 내용
+    setSaveContent (state, payload) {
+      state.edit.content = payload.content
+      console.log(state.edit.content)
     }
   },
   // actions
@@ -121,7 +128,11 @@ export default {
     },
     // 값의 변화
     setChangeContent ({commit}, payload) {
-      commit('setChangeAdvantage', payload)
+      commit('setChangeContent', payload)
+    },
+    // edit 내용
+    setSaveContent ({commit}, payload) {
+      commit('setSaveContent', payload)
     }
   }
 }

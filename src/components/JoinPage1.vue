@@ -18,7 +18,6 @@ export default {
   name: 'Join',
   data () {
     return {
-      advantageList: [],
       isClicked: false
     }
   },
@@ -27,17 +26,16 @@ export default {
       'getAdvantageList',
       'getIsHaveValue'
     ])
-    //
   },
   methods: {
+    ...mapActions([
+      // 'setNextPage'
+    ]),
     changeValue (event) {
       let target = event.target.id
       let targetNum = target.replace(/[^0-9]/g, '')
       this.$store.dispatch('setChangeAdvantage', targetNum)
     },
-    ...mapActions([
-      // 'setNextPage'
-    ]),
     setNextPage () {
       this.isClicked = true
       let getIsHaveValue = this.$store.getters.getIsHaveValue
@@ -47,7 +45,6 @@ export default {
         this.$store.dispatch('setChangeContent', 'false')
       }
     }
-
   }
 }
 </script>
