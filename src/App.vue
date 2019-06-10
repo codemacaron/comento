@@ -183,17 +183,14 @@ h2.join-title {
         display: inline-block;
         margin-right: 10px;
       }
-    }
-    &.only-one{
-      margin-left: 10px;
-      background: greenyellow;
-      span {
+      &.active {
         &::after {
           content: "";
           margin-right: 10px;
         }
       }
     }
+
   }
 }
 

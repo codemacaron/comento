@@ -60,7 +60,6 @@ export default {
         'value': false
       }
     ],
-    advantageListText: [],
     isHaveValue: false,
     edit: {
       content: ''
@@ -70,9 +69,6 @@ export default {
   getters: {
     getAdvantageList (state) {
       return state.advantageList
-    },
-    getAdvantageListText (state) {
-      return state.advantageListText
     },
     getIsHaveValue (state) {
       return state.isHaveValue
