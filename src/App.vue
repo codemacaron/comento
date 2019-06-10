@@ -118,7 +118,7 @@ main {
     line-height: 50px;
     padding: 0 20px;
     border: 0 none;
-    &.next{
+    &.next {
       background: $color-white;
       border: $border-point;
       color: $color-point;
@@ -129,7 +129,7 @@ main {
         color: $color-point-dark;
       }
     }
-    &.prev{
+    &.prev {
       background: $color-point;
       border: $border-point;
       color: $color-white;
@@ -138,7 +138,6 @@ main {
         background: $color-point-dark;
       }
     }
-
   }
 }
 
@@ -158,7 +157,7 @@ h1.join-title {
       height: 40px;
       line-height: 40px;
       border-radius: 40px;
-      &:hover{
+      &:hover {
         background: $color-point-dark;
         cursor: default;
       }
@@ -171,26 +170,29 @@ h2.join-title {
   margin-bottom: 10px;
   font-size: $font-l;
   font-weight: bold;
-  &.text-right{
+  &.text-right {
     text-align: right;
   }
   strong {
     span {
       border-bottom: $border;
       padding-bottom: 2px;
+      margin-right: 10px;
+      &:first-of-type {
+        margin-left: 10px;
+      }
       &::after {
         content: ",";
         display: inline-block;
-        margin-right: 10px;
       }
       &.active {
+        margin-right: 5px;
         &::after {
           content: "";
-          margin-right: 10px;
+          margin-right: 0px;
         }
       }
     }
-
   }
 }
 

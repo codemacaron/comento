@@ -1,4 +1,3 @@
-
 export default {
   // state
   state: {
@@ -60,28 +59,42 @@ export default {
         'value': false
       }
     ],
-    isHaveValue: false,
+    isHasValue: false,
     edit: {
       content: ''
-    }
+    },
+    lastValue: null,
+    valueCount: []
   },
   // getters
   getters: {
     getAdvantageList (state) {
       return state.advantageList
     },
-    getIsHaveValue (state) {
-      return state.isHaveValue
+    getIsHasValue (state) {
+      return state.isHasValue
     },
     getEdit (state) {
       return state.edit
+    },
+    getLastValue (state) {
+      return state.lastValue
     }
   },
   // mutations
   mutations: {
+    // 값이 있는지 없는지 바꿔주는 부분
+    setChageHasValue (state, payload) {
+      if (payload === false) {
+        state.isHasValue = false
+        console.log('이거???')
+      } else {
+        state.isHasValue = true
+      }
+    },
     // 강점 리스트에서 체크된 상황 변화
     setChangeAdvantage (state, payload) {
-      state.isHaveValue = false
+      state.isHasValue = false
       payload = payload * 1
       let advantageList = state.advantageList
       for (var i = 0; i < advantageList.length; i++) {
@@ -95,7 +108,7 @@ export default {
       }
       for (let item in advantageList) {
         if (advantageList[item].value === true) {
-          state.isHaveValue = true
+          state.isHasValue = true
         }
       }
     },
@@ -103,21 +116,40 @@ export default {
     setChangeContent (state, payload) {
       switch (payload) {
         case 'true':
-          state.isHaveValue = true
+          state.isHasValue = true
           break
         case 'false':
-          state.isHaveValue = false
+          state.isHasValue = false
           break
       }
     },
     // edit 내용
     setSaveContent (state, payload) {
       state.edit.content = payload.content
-      console.log(state.edit.content)
+    },
+    // 리스트 중 마지막에 특정 클래스 넣음
+    setValueLastIndex (state) {
+      let advantageList = state.advantageList
+      let count = state.valueCount
+      for (var i = 0; i < advantageList.length; i++) {
+        if (advantageList[i].value === true) {
+          count.push(i)
+        }
+      }
+      state.lastValue = count[count.length - 1]
+    },
+    // edit 내용
+    setSave (state, payload) {
+      // state.edit.content = payload.content
+      console.log(payload)
     }
   },
   // actions
   actions: {
+    // 값이 있는지 없는지 바꿔주는 부분
+    setChageHasValue ({commit}, payload) {
+      commit('setChageHasValue', payload)
+    },
     // 강점 리스트에서 체크된 상황 변화
     setChangeAdvantage ({commit}, payload) {
       commit('setChangeAdvantage', payload)
@@ -129,6 +161,13 @@ export default {
     // edit 내용
     setSaveContent ({commit}, payload) {
       commit('setSaveContent', payload)
+    },
+    // 리스트 중 마지막에 특정 클래스 넣음
+    setValueLastIndex ({commit}) {
+      commit('setValueLastIndex')
+    },
+    setSave ({commit}, payload) {
+      commit('setSave', payload)
     }
   }
 }

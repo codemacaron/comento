@@ -6,7 +6,7 @@
         input#advantage1(type="checkbox" name="advantage" :id="'advantage' + index" :checked="list.value" @click="changeValue($event)")
         label(:for="'advantage' + index") {{list.text}}
     .error-msg
-      p(v-show="!getIsHaveValue && isClicked") 강점을 선택해주세요!
+      p(v-show="!getIsHasValue && isClicked") 강점을 선택해주세요!
     .group-btn
       button.next(type="button" @click="setNextPage('next')") 저장 후 다음단계
 </template>
@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapGetters([
       'getAdvantageList',
-      'getIsHaveValue'
+      'getIsHasValue'
     ])
   },
   methods: {
@@ -38,8 +38,8 @@ export default {
     },
     setNextPage () {
       this.isClicked = true
-      let getIsHaveValue = this.$store.getters.getIsHaveValue
-      if (getIsHaveValue === true) {
+      let getIsHasValue = this.$store.getters.getIsHasValue
+      if (getIsHasValue === true) {
         this.$router.push({ name: 'JoinPage2' })
         this.isClicked = false
         this.$store.dispatch('setChangeContent', 'false')
