@@ -33,8 +33,8 @@
       div
         h1 나의경험
         ul
-          li
-            | text
+          li(v-for="(list, index) in getAdvantageListEdit")
+            | {{list.title}}
             button(type="button") 닫기
         .group-btn
           button.prev(type="button" @click="setNextPage('next')") 경험저장
@@ -64,7 +64,8 @@ export default {
     ...mapGetters([
       'getAdvantageList',
       'getIsHasValue',
-      'getEdit'
+      'getEdit',
+      'getAdvantageListEdit'
     ])
   },
   methods: {
@@ -81,7 +82,6 @@ export default {
           break
         case 'next':
           if (getIsHasValue === true) {
-            this.$router.push({ name: 'JoinPage4' })
             this.isClicked = false
             this.$store.dispatch('setSaveContent', this.edit)
           }
@@ -99,13 +99,11 @@ export default {
       }
     },
     setSave () {
-      // let edit = this.edit
       let title = this.edit.title
       let content = this.edit.content
       let titleTrim = title.trim()
       let contentTrim = content.trim()
       this.isClicked = true
-      // let getIsHasValue = this.$store.getters.getIsHasValue
       if (titleTrim.length === 0 || contentTrim.length === 0) {
         this.$store.dispatch('setChageHasValue', false)
         this.isClicked = true
@@ -115,11 +113,16 @@ export default {
           return this.$refs.textcontent.focus()
         }
       }
-      // if (getIsHasValue === true && title.length > 0 && content.length > 0) {
-      //   this.$store.dispatch('setSave', edit)
-      //   this.$store.dispatch('setChageHasValue')
-      //   this.isClicked = false
-      // }
+      if (titleTrim.length !== 0 || contentTrim.length !== 0) {
+        let payload = this.edit
+        console.log(payload)
+        this.$store.dispatch('setSave', payload)
+        // 수정이 필요함
+        // this.edit.title = ''
+        // this.edit.content = ''
+        this.isClicked = false
+        this.$store.dispatch('setChageHasValue', true)
+      }
     }
   }
 }
@@ -206,7 +209,7 @@ h2.join-title {
       padding: 20px 10px;
       border: 1px solid #dedfdf;
       font-size: $font-m;
-      &.active{
+      &.active {
         border: 1px solid $color-point;
       }
     }
@@ -219,7 +222,7 @@ h2.join-title {
       border: 1px solid #dedfdf;
       padding: 20px 10px;
       font-size: $font-m;
-      &.active{
+      &.active {
         border: 1px solid $color-point;
       }
     }
@@ -228,7 +231,7 @@ h2.join-title {
 .error-msg {
   margin-top: 10px;
   margin-bottom: 50px;
-  p{
+  p {
     text-align: left;
     font-size: $font-m;
   }

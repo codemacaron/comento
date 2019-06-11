@@ -63,6 +63,7 @@ export default {
     edit: {
       content: ''
     },
+    advantageListEdit: [],
     lastValue: null,
     valueCount: []
   },
@@ -79,6 +80,9 @@ export default {
     },
     getLastValue (state) {
       return state.lastValue
+    },
+    getAdvantageListEdit (state) {
+      return state.advantageListEdit
     }
   },
   // mutations
@@ -87,7 +91,6 @@ export default {
     setChageHasValue (state, payload) {
       if (payload === false) {
         state.isHasValue = false
-        console.log('이거???')
       } else {
         state.isHasValue = true
       }
@@ -138,10 +141,10 @@ export default {
       }
       state.lastValue = count[count.length - 1]
     },
-    // edit 내용
+    // 리스트 저장
     setSave (state, payload) {
-      // state.edit.content = payload.content
-      console.log(payload)
+      let stateAdvantageListEdit = state.advantageListEdit
+      stateAdvantageListEdit.push(payload)
     }
   },
   // actions
@@ -166,6 +169,7 @@ export default {
     setValueLastIndex ({commit}) {
       commit('setValueLastIndex')
     },
+    // 리스트 저장
     setSave ({commit}, payload) {
       commit('setSave', payload)
     }
