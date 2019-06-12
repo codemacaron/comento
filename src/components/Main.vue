@@ -39,7 +39,7 @@
         span .
 </template>
 
-<script scope>
+<script>
 import MainList from './MainList'
 import { mapGetters } from 'vuex'
 

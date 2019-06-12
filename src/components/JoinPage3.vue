@@ -16,31 +16,33 @@
           CListcomponent
           |을(를) 뛰어나게 발휘했나요?
         div.input-area
-          input(type="text" ref="title" :class="{active : !getIsHasValue && isClicked && edit.title.length === 0}" v-model="edit.title" placeholder="예) 스노우보드 동아리")
+          input(v-model="editTitle" type="text" ref="title" :class="{active : !getIsHasValue && isClicked && editTitle.length === 0}" placeholder="예) 스노우보드 동아리")
           | 을(를) 할때
+          p {{getAEditTitle}}
         .error-msg
-          p(v-show="!getIsHasValue && isClicked && edit.title.length === 0") 타이틀을 입력해주세요!
+          p(v-show="!getIsHasValue && isClicked && editTitle.length === 0") 타이틀을 입력해주세요!
         h2.join-title
           CListcomponent
           | 을(를) 발휘한 에피소드를 자세히 알려주세요.
         div.text-area
-          textarea(v-model="edit.content" ref="textcontent" :class="{active : !getIsHasValue && isClicked && edit.content.length === 0}" placeholder="예) (상황) 동아리 연말 나눔행사의 예산 부족 문제 해결을 학교 주변 가게 후원으로 해결하기 위해 (행동) 총 47개 매장의 사장님을 만나 나눔행사의 취지를 설명하고, 동아리 단톡방, 페이스북 및 안내 팜플릿 홍보를 약속하여 (결과) 4개 매장의 후원을 이끌어 냄")
+          textarea(v-model="editContent" ref="content" :class="{active : !getIsHasValue && isClicked && editContent.length === 0}" placeholder="예) (상황) 동아리 연말 나눔행사의 예산 부족 문제 해결을 학교 주변 가게 후원으로 해결하기 위해 (행동) 총 47개 매장의 사장님을 만나 나눔행사의 취지를 설명하고, 동아리 단톡방, 페이스북 및 안내 팜플릿 홍보를 약속하여 (결과) 4개 매장의 후원을 이끌어 냄")
+          p(style="white-space: pre-line") {{getAEditContent}}
         .error-msg
-          p(v-show="!getIsHasValue && isClicked && edit.content.length === 0") 내용을 입력해주세요!
+          p(v-show="!getIsHasValue && isClicked && editContent.length === 0") 내용을 입력해주세요!
         .group-btn
           button.next(type="button" @click="setShowNextStep(false)") 이전단계
           button.prev(type="button" @click="setSave()") 경험저장
       div
         h1 나의경험
         ul
-          li(v-for="(list, index) in getAdvantageListEdit")
+          li(v-for="(list, index) in getAListEdit")
             | {{list.title}}
             button(type="button") 닫기
         .group-btn
           button.prev(type="button" @click="setNextPage('next')") 경험저장
 </template>
 
-<script scope>
+<script>
 import CListcomponent from './util/list-component'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -50,22 +52,47 @@ export default {
     return {
       isClicked: false,
       isHasValue: false,
-      onlyOne: false,
-      edit: {
-        title: '',
-        content: ''
-      }
+      onlyOne: false
     }
   },
   components: {
     CListcomponent
   },
   computed: {
+    // 타이틀 값을 v-model로 연결하는 방법
+    editTitle: {
+      set (value) {
+        // 값을 저장하는 역활
+        let payload = {
+          'value': value,
+          'type': 'title'
+        }
+        this.$store.dispatch('setValue', payload)
+      },
+      get () {
+        // 값을 가져오는 역활
+        return this.$store.getters.getAEditTitle
+      }
+    },
+    editContent: {
+      set (value) {
+        let payload = {
+          'value': value,
+          'type': 'content'
+        }
+        this.$store.dispatch('setValue', payload)
+      },
+      get () {
+        return this.$store.getters.getAEditContent
+      }
+    },
     ...mapGetters([
       'getAdvantageList',
       'getIsHasValue',
       'getEdit',
-      'getAdvantageListEdit'
+      'getAListEdit',
+      'getAEditTitle',
+      'getAEditContent'
     ])
   },
   methods: {
@@ -99,29 +126,27 @@ export default {
       }
     },
     setSave () {
-      let title = this.edit.title
-      let content = this.edit.content
-      let titleTrim = title.trim()
-      let contentTrim = content.trim()
       this.isClicked = true
-      if (titleTrim.length === 0 || contentTrim.length === 0) {
-        this.$store.dispatch('setChageHasValue', false)
-        this.isClicked = true
-        if (titleTrim.length === 0) {
+      this.$store.dispatch('setChageHasValue', false)
+      let title = this.$store.getters.getAEditTitle
+      let content = this.$store.getters.getAEditContent
+      if (title.length === 0 || content.length === 0) {
+        if (title.length === 0) {
           return this.$refs.title.focus()
-        } else if (contentTrim.length === 0) {
-          return this.$refs.textcontent.focus()
+        } else if (content.length === 0) {
+          return this.$refs.content.focus()
         }
       }
-      if (titleTrim.length !== 0 || contentTrim.length !== 0) {
-        let payload = this.edit
-        console.log(payload)
-        this.$store.dispatch('setSave', payload)
-        // 수정이 필요함
-        // this.edit.title = ''
-        // this.edit.content = ''
+      if (title.length !== 0 && content.length !== 0) {
         this.isClicked = false
+        let payload = {
+          'title': this.$store.getters.getAEditTitle,
+          'content': this.$store.getAEditContent
+        }
         this.$store.dispatch('setChageHasValue', true)
+        this.$store.dispatch('setSave', payload).then(() => {
+          this.$store.dispatch('setClear')
+        })
       }
     }
   }

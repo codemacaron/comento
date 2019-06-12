@@ -11,7 +11,7 @@
       button.next(type="button" @click="setNextPage('next')") 저장 후 다음단계
 </template>
 
-<script scope>
+<script>
 import { mapGetters, mapActions } from 'vuex'
 
 export default {

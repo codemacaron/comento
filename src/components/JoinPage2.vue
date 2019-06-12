@@ -19,7 +19,7 @@
 
 </template>
 
-<script scope>
+<script>
 import CListcomponent from './util/list-component'
 import { mapGetters, mapActions } from 'vuex'
 

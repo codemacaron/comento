@@ -63,9 +63,13 @@ export default {
     edit: {
       content: ''
     },
-    advantageListEdit: [],
     lastValue: null,
-    valueCount: []
+    valueCount: [],
+    aListEdit: [],
+    aEdit: {
+      title: '',
+      content: ''
+    }
   },
   // getters
   getters: {
@@ -81,8 +85,14 @@ export default {
     getLastValue (state) {
       return state.lastValue
     },
-    getAdvantageListEdit (state) {
-      return state.advantageListEdit
+    getAListEdit (state) {
+      return state.aListEdit
+    },
+    getAEditTitle (state) {
+      return state.aEdit.title
+    },
+    getAEditContent (state) {
+      return state.aEdit.content
     }
   },
   // mutations
@@ -143,8 +153,30 @@ export default {
     },
     // 리스트 저장
     setSave (state, payload) {
-      let stateAdvantageListEdit = state.advantageListEdit
-      stateAdvantageListEdit.push(payload)
+      let stateAListEdit = state.aListEdit
+      stateAListEdit.push(payload)
+      console.log('payload ::: ', payload)
+      console.log('stateAListEdit ::: ', stateAListEdit)
+    },
+    // 값을 v-model로 연결하는 방법
+    setValue (state, payload) {
+      let value = payload.value
+      switch (payload.type) {
+        case 'title':
+          state.aEdit = {...state.aEdit, title: value}
+          console.log(state.aEdit.title)
+          break
+        case 'content':
+          state.aEdit = {...state.aEdit, content: value}
+          console.log(state.aEdit.content)
+          break
+      }
+    },
+    // 값을 저장후 초기화
+    setClear (state) {
+      let stateAEdit = state.aEdit
+      stateAEdit.title = ''
+      stateAEdit.content = ''
     }
   },
   // actions
@@ -172,6 +204,14 @@ export default {
     // 리스트 저장
     setSave ({commit}, payload) {
       commit('setSave', payload)
+    },
+    // 값을 v-model로 연결하는 방법
+    setValue ({commit}, payload) {
+      commit('setValue', payload)
+    },
+    // 값을 저장후 초기화
+    setClear ({commit}) {
+      commit('setClear')
     }
   }
 }
