@@ -5,9 +5,9 @@
       li(v-for="(post, index) in getMixList")
         .cover(v-if="post !== undefined")
           .link-list(v-if="0 !== (index+1)%4 || index === 0")
-            h2(v-show="post.category_no === 1") Apple
-            h2(v-show="post.category_no === 2") Banana
-            h2(v-show="post.category_no === 3") Coconut
+            h2(v-show="post.category_no === '1'") Apple
+            h2(v-show="post.category_no === '2'") Banana
+            h2(v-show="post.category_no === '3'") Coconut
             h3(v-show="post.no !== undefined") {{post.no}}
             h3(v-show="post.no === undefined") 번호가 없습니다.
             ul
@@ -41,13 +41,14 @@
               h1(v-show="post.title === undefined") 제목이 없습니다.
               p(v-show="post.contents !== undefined") {{post.contents}}
               p(v-show="post.contents === undefined") 내용이 없습니다.
+
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'MainList',
+  name: 'C-Mainlist',
   computed: {
     ...mapGetters([
       'getMixList',
@@ -113,17 +114,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./../sass/partials/_fonts";
-@import "./../sass/partials/_color";
-@import "./../sass/partials/_mixin";
-@import "./../sass/partials/_base";
+@import "./../../sass/partials/_fonts";
+@import "./../../sass/partials/_color";
+@import "./../../sass/partials/_mixin";
+@import "./../../sass/partials/_base";
 // 변수 모음
 $height: 30px;
 $double-height: calc(30px * 2);
 $treble-height: calc(30px * 2);
 $padding: 10px;
 $double-padding: calc(10px * 2);
-ul{
+ul {
   list-style: none;
   padding-left: 0;
 }

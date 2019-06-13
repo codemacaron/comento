@@ -20,6 +20,19 @@ export default {
     // 광고
     ad: [],
     // 포스트
+    savepost: {
+      'asc': [],
+      'desc': [],
+      'ascCategory': [],
+      'descCategory': [],
+      'ascCategory1': [],
+      'ascCategory2': [],
+      'ascCategory3': [],
+      'descCategory1': [],
+      'descCategory2': [],
+      'descCategory3': []
+    },
+    // 포스트
     post: {
       'asc': [],
       'desc': [],

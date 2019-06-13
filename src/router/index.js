@@ -37,11 +37,6 @@ export default new Router({
       path: '/JoinPage4',
       name: 'JoinPage4',
       component: () => import('@/components/JoinPage4')
-    },
-    {
-      path: '/JoinPage5',
-      name: 'JoinPage5',
-      component: () => import('@/components/JoinPage5')
     }
   ]
 })

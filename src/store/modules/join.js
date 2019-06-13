@@ -69,7 +69,9 @@ export default {
     aEdit: {
       title: '',
       content: ''
-    }
+    },
+    isPopup: false,
+    popupValue: ''
   },
   // getters
   getters: {
@@ -93,6 +95,12 @@ export default {
     },
     getAEditContent (state) {
       return state.aEdit.content
+    },
+    getPopupValue (state) {
+      return state.popupValue
+    },
+    getIsPopup (state) {
+      return state.isPopup
     }
   },
   // mutations
@@ -155,8 +163,6 @@ export default {
     setSave (state, payload) {
       let stateAListEdit = state.aListEdit
       stateAListEdit.push(payload)
-      console.log('payload ::: ', payload)
-      console.log('stateAListEdit ::: ', stateAListEdit)
     },
     // 값을 v-model로 연결하는 방법
     setValue (state, payload) {
@@ -164,11 +170,9 @@ export default {
       switch (payload.type) {
         case 'title':
           state.aEdit = {...state.aEdit, title: value}
-          console.log(state.aEdit.title)
           break
         case 'content':
           state.aEdit = {...state.aEdit, content: value}
-          console.log(state.aEdit.content)
           break
       }
     },
@@ -177,6 +181,25 @@ export default {
       let stateAEdit = state.aEdit
       stateAEdit.title = ''
       stateAEdit.content = ''
+    },
+    // 팝업 관련
+    setPopup (state, payload) {
+      state.isPopup = true
+      state.popupValue = payload
+    },
+    setClose (state) {
+      state.isPopup = false
+    },
+    setDelete (state, payload) {
+      let stateAListEdit = state.aListEdit
+      let idx = stateAListEdit.indexOf(payload)
+      if (idx === -1) {
+        stateAListEdit.splice(payload, 1)
+      }
+    },
+    setRewrite (state, payload) {
+      console.log(state)
+      console.log(payload)
     }
   },
   // actions
@@ -212,6 +235,19 @@ export default {
     // 값을 저장후 초기화
     setClear ({commit}) {
       commit('setClear')
+    },
+    // 팝업 관련
+    setPopup ({commit}, payload) {
+      commit('setPopup', payload)
+    },
+    setClose ({commit}) {
+      commit('setClose')
+    },
+    setDelete ({commit}, payload) {
+      commit('setDelete', payload)
+    },
+    setRewrite ({commit}, payload) {
+      commit('setRewrite', payload)
     }
   }
 }

@@ -23,24 +23,14 @@
           li
             input#descendingSort(type="radio" name="sort" :value="getSortValue" @input.prevent="sortList")
             label(for="descendingSort") 내림차순
-    main-List
+    C-Mainlist
     p.last-list(v-show="getStopList === false") 리스트가 더이상 없습니다.
-    p.loading(v-show="getLoading === true")
-      span.hop
-        span L
-        span o
-        span a
-        span d
-        span i
-        span n
-        span g
-        span .
-        span .
-        span .
+    C-Loading
 </template>
 
 <script>
-import MainList from './MainList'
+import CLoading from './util/loading'
+import CMainlist from './util/MainList'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -52,15 +42,15 @@ export default {
     }
   },
   components: {
-    mainList: MainList
+    CMainlist,
+    CLoading
   },
   computed: {
     ...mapGetters([
       'getFilter',
       'getRadioValue',
       'getSortValue',
-      'getStopList',
-      'getLoading'
+      'getStopList'
     ])
   },
   methods: {
@@ -338,41 +328,6 @@ label {
   vertical-align: middle;
   text-transform: capitalize;
 }
-.loading {
-  text-align: center;
-  .hop {
-    text-transform: uppercase;
-    color: #34495e;
-    span {
-      display: inline-block;
-      animation: loading 4s ease-in-out 0.6s infinite;
-      margin-left: 5px;
-      &:nth-child(1) {
-        margin-left: 0px;
-        animation-delay: 0.1s;
-      }
-      &:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      &:nth-child(3) {
-        animation-delay: 0.3s;
-      }
-      &:nth-child(4) {
-        animation-delay: 0.4s;
-      }
-      &:nth-child(5) {
-        animation-delay: 0.5s;
-      }
-      &:nth-child(6) {
-        animation-delay: 0.6s;
-      }
-      &:nth-child(7) {
-        animation-delay: 0.7s;
-      }
-    }
-  }
-}
-
 @keyframes loading {
   from {
     transform: translate(0px, 0px);
