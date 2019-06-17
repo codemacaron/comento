@@ -11,12 +11,12 @@
       span(v-show = "getChangeIndex === undefined && getAListEdit.length < 1 && getAEditTitle.length < 1 && !getFirstList") 저장된 경험이 없어요
       span(v-show = "getChangeIndex === undefined && getAEditTitle.length < 1 && getFirstList") 새로운 경험 작성하기
       span(v-show = "getChangeIndex === undefined") {{getAEditTitle}}
-    C-Popup(v-show="getIsPopup")
+    //- C-Popup(v-show="getIsPopup")
     .group-btn(v-show="getAListEdit.length>0")
       button.prev(type="button" @click="setNextPage()") 경험저장
 </template>
 <script>
-import CPopup from './popup'
+// import CPopup from './popup'
 import { mapGetters } from 'vuex'
 export default {
   name: 'C-Listadvantaget',
@@ -27,7 +27,7 @@ export default {
     }
   },
   components: {
-    CPopup
+    // CPopup
   },
   computed: {
     ...mapGetters([
@@ -44,12 +44,15 @@ export default {
     setNextPage () {
       this.$router.push({ name: 'JoinPage4' })
     },
+    // 수정하기
     onClickRewrite (payload) {
       this.$store.dispatch('setRewrite', payload)
     },
-    onClickRenderLink (payload) {
-      this.$store.dispatch('setPopup', payload)
-    },
+    // 팝업 열기
+    // onClickRenderLink (payload) {
+    //   this.$store.dispatch('setPopup', payload)
+    // },
+    // 삭제하기
     setDelete (payload) {
       this.$store.dispatch('setDelete', payload)
     }
@@ -57,7 +60,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "./../../sass/partials/_color";
 @import "./../../sass/partials/_fonts";
 h1 {
   font-size: $font-m;
@@ -66,7 +70,7 @@ ul {
   padding-left: 20px;
   li {
     position: relative;
-    padding-right: 30px;
+    $border: 30px;
     min-height: 30px;
     line-height: 30px;
     margin-top: 5px;
@@ -96,7 +100,7 @@ ul {
         line-height: 30px;
         text-align: center;
         background: #fff;
-        border: 1px solid #dedfdf;
+        border: $border;
       }
     }
   }

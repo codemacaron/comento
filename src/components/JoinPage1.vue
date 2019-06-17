@@ -81,7 +81,7 @@ ul {
         line-height: 18px;
         text-align: center;
         background: #fff;
-        border: 1px solid #dedfdf;
+        border: $border;
         font-size: 18px;
       }
     }

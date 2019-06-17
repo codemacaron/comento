@@ -196,6 +196,11 @@ h2.join-title {
   }
 }
 
+.data-area {
+  padding: 20px 10px;
+  border: $border;
+  background: #eeefef;
+}
 @include mobile {
   button.btn-goto-top {
     right: 10px;

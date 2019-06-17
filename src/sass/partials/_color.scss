@@ -10,7 +10,9 @@ $color-light-half:lighten($color-regular, 50%);
 $color-darker-half:darken($color-regular, 50%);
 $color-white: #fff;
 $color-border: #dedfdf;
+$color-border-dark: darken($color-border, 50%);
 
 $border: 1px solid $color-border;
+$border-dark: 1px solid $color-border-dark;
 $border-point: 1px solid $color-point;
 $border-point-dark: 1px solid $color-point-dark;

@@ -149,7 +149,7 @@ $height: 50px;
   p {
     line-height: 30px;
     padding-left: 10px;
-    padding-right: 10px;
+    $border: 10px;
   }
   strong {
     font-weight: bold;
@@ -174,7 +174,7 @@ $height: 50px;
       list-style: none;
       padding-bottom: 10px;
       padding-left: 10px;
-      padding-right: 10px;
+      $border: 10px;
       margin-bottom: 10px;
       border-bottom: $border;
       li {
@@ -208,7 +208,7 @@ $height: 50px;
         ul {
           list-style: none;
           padding-left: 10px;
-          padding-right: 10px;
+          $border: 10px;
           padding-bottom: 10px;
           border-bottom: $border;
           li {

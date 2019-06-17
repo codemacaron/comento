@@ -67,7 +67,7 @@ export default {
   @include clearfix;
   >div {
     float: left;
-    border: 1px solid #dedfdf;
+    border: $border;
     box-sizing: border-box;
     padding: 20px;
     &:first-of-type {
@@ -78,11 +78,6 @@ export default {
       width: 30%;
     }
   }
-}
-.data-area {
-  padding: 20px 10px;
-  border: 1px solid #dedfdf;
-  background: #eeefef;
 }
 h1.join-title {
   font-size: $font-m;

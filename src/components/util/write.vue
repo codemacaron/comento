@@ -133,7 +133,7 @@ h2.join-title {
     width: 80%;
     margin-right: 5px;
     padding: 20px 10px;
-    border: 1px solid #dedfdf;
+    border: $border;
     font-size: $font-m;
     &.active {
       border: 1px solid $color-point;
@@ -145,7 +145,7 @@ h2.join-title {
   textarea {
     width: 100%;
     min-height: 200px;
-    border: 1px solid #dedfdf;
+    border: $border;
     padding: 20px 10px;
     font-size: $font-m;
     &.active {
