@@ -1,0 +1,44 @@
+[{
+  // 리스트 순서
+  "no": "1",
+  // 리스트 제목
+  "title": "당신은 학습능력, 의사소통능력이(가) 뛰어나다",
+  // 내용 -> 글쓰기에서 에디터로 될 예정, 받을때는 text로 간단히 받을 수 있는가?
+  "contents": "동아리 연말 나눔행사의 예산 부족 문제 해결을 학교 주변 가게 후원으로 해결하기 위해",
+  // 경험 관련 리스트
+  "advantage": [
+    {
+      "title": "스노우보드 동아리",
+      "content": "(상황) 동아리 연말 나눔행사의 예산 부족 문제 해결을 학교 주변 가게 후원으로 해결하기 위해 (행동) 총 47개 매장의 사장님을 만나 나눔행사의 취지를 설명하고, 동아리 단톡방, 페이스북 및 안내 팜플릿 홍보를 약속하여 (결과) 4개 매장의 후원을 이끌어 냄"
+    },
+    {
+      "title": "스노우보드 동아리",
+      "content": "(상황) 동아리 연말 나눔행사의 예산 부족 문제 해결을 학교 주변 가게 후원으로 해결하기 위해 (행동) 총 47개 매장의 사장님을 만나 나눔행사의 취지를 설명하고, 동아리 단톡방, 페이스북 및 안내 팜플릿 홍보를 약속하여 (결과) 4개 매장의 후원을 이끌어 냄"
+    }
+  ],
+  // 글쓴이 id
+  "user_id": "seromkim1005",
+  // 글쓴이 email
+  "email": "seromkim1005@naver.com",
+  // 글쓴이 password
+  "password": "12345",
+  // 글 작성일자
+  "updated_at": "2018-09-04 19:59:12",
+  // 카테고리는 여러개 ex ) 학습능력, 의사소통능력 기타 등등...
+  "category_no": "2",
+  // 댓글이 있거나 없거나 .. 있으면 이렇게
+  "replies": [
+    {
+      // 리플 넘버
+      "no": "269",
+      // 리플 내용
+      "contents": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget tristique sapien. Donec sit amet lacinia diam. Fusce imperdiet id lectus vitae mollis. Nullam iaculis sed mi sed ultrices. Morbi accumsan semper lorem, ut pretium ipsum sodales eget. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat. Vestibulum in faucibus orci. Vivamus eu sapien tincidunt, molestie sem in, suscipit leo. Cras a tortor imperdiet, semper est at, vulput",
+      // 리플 단 날짜
+      "updated_at": "2018-09-04 19:59:38",
+      // 리플 단 id
+      "user_no": "younghea",
+      // 리플단 사람의 이메일
+      "email": "younghea@naver.com"
+    }
+  ]
+}]

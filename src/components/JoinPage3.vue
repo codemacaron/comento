@@ -62,20 +62,10 @@ export default {
 @import "./../sass/partials/_color";
 @import "./../sass/partials/_mixin";
 
-.data-area {
-  padding: 20px 10px;
-  border: 1px solid #dedfdf;
-  background: #eeefef;
-}
-h1.join-title {
-  font-size: $font-m;
-  margin-bottom: 10px;
-  text-align: left;
-}
-.cover {
-  @include clearfix;
+.cover{
   margin-top: 50px;
-  > div {
+  @include clearfix;
+  >div {
     float: left;
     border: 1px solid #dedfdf;
     box-sizing: border-box;
@@ -88,5 +78,18 @@ h1.join-title {
       width: 30%;
     }
   }
+}
+.data-area {
+  padding: 20px 10px;
+  border: 1px solid #dedfdf;
+  background: #eeefef;
+}
+h1.join-title {
+  font-size: $font-m;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.cover {
+  margin-top: 50px;
 }
 </style>

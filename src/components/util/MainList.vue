@@ -5,9 +5,9 @@
       li(v-for="(post, index) in getMixList")
         .cover(v-if="post !== undefined")
           .link-list(v-if="0 !== (index+1)%4 || index === 0")
-            h2(v-show="post.category_no === '1'") Apple
-            h2(v-show="post.category_no === '2'") Banana
-            h2(v-show="post.category_no === '3'") Coconut
+            h2(v-show="post.category_no === '1' || post.category_no === 1") Apple
+            h2(v-show="post.category_no === '2' || post.category_no === 2") Banana
+            h2(v-show="post.category_no === '3' || post.category_no === 3") Coconut
             h3(v-show="post.no !== undefined") {{post.no}}
             h3(v-show="post.no === undefined") 번호가 없습니다.
             ul

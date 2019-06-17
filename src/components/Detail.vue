@@ -27,6 +27,7 @@
           span {{post.contents}}
         a.link-goto-list(@click="onClickRenderLink()") 목록으로 가기
       div.replies(v-show="replies.length !== 0")
+        p {{replies}}
         h1 댓글
         ul(v-for="(reply, index) in replies")
           li

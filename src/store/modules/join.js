@@ -60,6 +60,7 @@ export default {
       }
     ],
     isHasValue: false,
+    isFirstList: false,
     edit: {
       content: ''
     },
@@ -71,7 +72,8 @@ export default {
       content: ''
     },
     isPopup: false,
-    popupValue: ''
+    popupValue: '',
+    changeIndex: undefined
   },
   // getters
   getters: {
@@ -101,6 +103,12 @@ export default {
     },
     getIsPopup (state) {
       return state.isPopup
+    },
+    getFirstList (state) {
+      return state.isFirstList
+    },
+    getChangeIndex (state) {
+      return state.changeIndex
     }
   },
   // mutations
@@ -162,11 +170,23 @@ export default {
     // 리스트 저장
     setSave (state, payload) {
       let stateAListEdit = state.aListEdit
-      stateAListEdit.push(payload)
+      let setPayload = {
+        'title': payload.title,
+        'content': payload.content
+      }
+      if (payload.index === undefined) {
+        stateAListEdit.push(setPayload)
+      } else if (payload.index !== undefined) {
+        stateAListEdit.splice(payload.index, 1, setPayload)
+        state.changeIndex = undefined
+      }
     },
     // 값을 v-model로 연결하는 방법
     setValue (state, payload) {
       let value = payload.value
+      if (payload.index !== undefined) {
+        state.changeIndex = payload.index
+      }
       switch (payload.type) {
         case 'title':
           state.aEdit = {...state.aEdit, title: value}
@@ -190,6 +210,7 @@ export default {
     setClose (state) {
       state.isPopup = false
     },
+    // 해당 리스트 삭제
     setDelete (state, payload) {
       let stateAListEdit = state.aListEdit
       let idx = stateAListEdit.indexOf(payload)
@@ -197,9 +218,8 @@ export default {
         stateAListEdit.splice(payload, 1)
       }
     },
-    setRewrite (state, payload) {
-      console.log(state)
-      console.log(payload)
+    setFirstList (state) {
+      state.isFirstList = true
     }
   },
   // actions
@@ -243,11 +263,29 @@ export default {
     setClose ({commit}) {
       commit('setClose')
     },
+    // 해당 리스트 삭제
     setDelete ({commit}, payload) {
       commit('setDelete', payload)
     },
-    setRewrite ({commit}, payload) {
-      commit('setRewrite', payload)
+    // 수정
+    setRewrite ({commit, state}, payload) {
+      let changePayload = state.aListEdit[payload]
+      let changePayloadTitle = {
+        'type': 'title',
+        'value': changePayload.title,
+        'index': payload
+      }
+      let changePayloadContent = {
+        'type': 'content',
+        'value': changePayload.content,
+        'index': payload
+      }
+      commit('setValue', changePayloadTitle)
+      commit('setValue', changePayloadContent)
+    },
+    // 리스트에 값이 처음인지 확인
+    setFirstList ({commit}) {
+      commit('setFirstList')
     }
   }
 }

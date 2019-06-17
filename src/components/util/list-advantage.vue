@@ -3,8 +3,14 @@
     h1 나의경험
     ul
       li(v-for="(list, index) in getAListEdit")
-        a(@click="onClickRewrite(index)") {{list.title}}
+        a(@click="onClickRewrite(index)")
+          span(v-show = "getChangeIndex !== index") {{list.title}}
+          span(v-show = "getChangeIndex === index") {{getAEditTitle}}
         button(type="button" @click="setDelete(index)") 닫기
+    p
+      span(v-show = "getChangeIndex === undefined && getAListEdit.length < 1 && getAEditTitle.length < 1 && !getFirstList") 저장된 경험이 없어요
+      span(v-show = "getChangeIndex === undefined && getAEditTitle.length < 1 && getFirstList") 새로운 경험 작성하기
+      span(v-show = "getChangeIndex === undefined") {{getAEditTitle}}
     C-Popup(v-show="getIsPopup")
     .group-btn(v-show="getAListEdit.length>0")
       button.prev(type="button" @click="setNextPage()") 경험저장
@@ -27,7 +33,10 @@ export default {
     ...mapGetters([
       'getIsHasValue',
       'getAListEdit',
-      'getIsPopup'
+      'getIsPopup',
+      'getAEditTitle',
+      'getFirstList',
+      'getChangeIndex'
     ])
   },
   methods: {

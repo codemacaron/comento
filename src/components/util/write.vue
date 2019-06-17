@@ -7,7 +7,6 @@
     div.input-area
       input(v-model="editTitle" type="text" ref="title" :class="{active : !getIsHasValue && isClicked && editTitle.length === 0}" placeholder="예) 스노우보드 동아리")
       | 을(를) 할때
-      p {{getAEditTitle}}
     .error-msg
       p(v-show="!getIsHasValue && isClicked && editTitle.length === 0") 타이틀을 입력해주세요!
     h2.join-title
@@ -15,20 +14,11 @@
       | 을(를) 발휘한 에피소드를 자세히 알려주세요.
     div.text-area
       textarea(v-model="editContent" ref="content" :class="{active : !getIsHasValue && isClicked && editContent.length === 0}" placeholder="예) (상황) 동아리 연말 나눔행사의 예산 부족 문제 해결을 학교 주변 가게 후원으로 해결하기 위해 (행동) 총 47개 매장의 사장님을 만나 나눔행사의 취지를 설명하고, 동아리 단톡방, 페이스북 및 안내 팜플릿 홍보를 약속하여 (결과) 4개 매장의 후원을 이끌어 냄")
-      p(style="white-space: pre-line") {{getAEditContent}}
     .error-msg
       p(v-show="!getIsHasValue && isClicked && editContent.length === 0") 내용을 입력해주세요!
     .group-btn
-      button.next(type="button" @click="setShowNextStep()") 이전단계
-      button.prev(type="button" @click="setSave()") 경험저장
-    h1 나의경험
-    ul
-      li(v-for="(list, index) in getAListEdit")
-        a(@click="onClickRewrite(index)") {{list.title}}
-        button(type="button" @click="setDelete(index)") 닫기
-    C-Popup(v-show="getIsPopup")
-    .group-btn(v-show="getAListEdit.length>0")
-      button.prev(type="button" @click="setNextPage()") 경험저장
+    button.next(type="button" @click="setShowNextStep()") 이전단계
+    button.prev(type="button" @click="setSave()") 경험저장
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -47,10 +37,12 @@ export default {
     // 타이틀 값을 v-model로 연결하는 방법
     editTitle: {
       set (value) {
+        this.$store.dispatch('setFirstList')
         // 값을 저장하는 역활
         let payload = {
           'value': value,
-          'type': 'title'
+          'type': 'title',
+          'index': this.$store.getters.getChangeIndex
         }
         this.$store.dispatch('setValue', payload)
       },
@@ -63,7 +55,8 @@ export default {
       set (value) {
         let payload = {
           'value': value,
-          'type': 'content'
+          'type': 'content',
+          'index': this.$store.getters.getChangeIndex
         }
         this.$store.dispatch('setValue', payload)
       },
@@ -74,7 +67,8 @@ export default {
     ...mapGetters([
       'getIsHasValue',
       'getAEditTitle',
-      'getAEditContent'
+      'getAEditContent',
+      'getAListEdit'
     ])
   },
   methods: {
@@ -82,6 +76,7 @@ export default {
       this.isHasValue = false
     },
     setSave () {
+      let changeIndex = this.$store.getters.getChangeIndex
       this.isClicked = true
       this.$store.dispatch('setChageHasValue', false)
       let title = this.$store.getters.getAEditTitle
@@ -93,11 +88,24 @@ export default {
           return this.$refs.content.focus()
         }
       }
-      if (title.length !== 0 && content.length !== 0) {
+      if (changeIndex === undefined && title.length !== 0 && content.length !== 0) {
         this.isClicked = false
         let payload = {
           'title': this.$store.getters.getAEditTitle,
           'content': this.$store.getters.getAEditContent
+        }
+        this.$store.dispatch('setChageHasValue', true)
+        this.$store.dispatch('setSave', payload).then(() => {
+          this.$store.dispatch('setClear')
+        })
+      }
+
+      if (changeIndex !== undefined && title.length !== 0 && content.length !== 0) {
+        this.isClicked = false
+        let payload = {
+          'title': this.$store.getters.getAEditTitle,
+          'content': this.$store.getters.getAEditContent,
+          'index': changeIndex
         }
         this.$store.dispatch('setChageHasValue', true)
         this.$store.dispatch('setSave', payload).then(() => {
@@ -109,9 +117,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "./../../sass/partials/_fonts";
 @import "./../../sass/partials/_color";
+@import "./../../sass/partials/_mixin";
 
 h2.join-title {
   font-size: $font-m;
