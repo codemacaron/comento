@@ -18,8 +18,9 @@
         div.data-area(:class="{active : clickNum === index}")
           h1 {{list.title}}
           p {{list.content}}
-          button(type="button" @click="setDelete(index)") 수정
-          button(type="button" @click="setDelete(index)") 삭제
+          .group-btn
+            button.next(type="button" @click="onClickRewrite(index)") 수정
+            button.next(type="button" @click="setDelete(index)") 삭제
 
     h2.join-title
       | 아니라면 수정하기 버튼을 눌러 글을 보완하거나 경험을 추가해보세요.
@@ -57,15 +58,22 @@ export default {
     setNextPage (payload) {
       switch (payload) {
         case 'prev':
+          this.$store.dispatch('setClear')
           this.$router.push({ name: 'JoinPage3' })
           break
         case 'next':
+          this.$store.dispatch('setChangePage', false)
           this.$router.push({ name: 'Main' })
           break
       }
     },
     setDelete (payload) {
       this.$store.dispatch('setDelete', payload)
+    },
+    // 수정하기
+    onClickRewrite (payload) {
+      this.$store.dispatch('setRewrite', payload)
+      this.$router.push({ name: 'JoinPage3' })
     }
   }
 }

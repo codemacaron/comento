@@ -17,8 +17,8 @@
     .error-msg
       p(v-show="!getIsHasValue && isClicked && editContent.length === 0") 내용을 입력해주세요!
     .group-btn
-    button.next(type="button" @click="setShowNextStep()") 이전단계
-    button.prev(type="button" @click="setSave()") 경험저장
+      button.next(type="button" @click="setShowNextStep()") 이전단계
+      button.prev(type="button" @click="setSave()") 경험저장
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -73,7 +73,11 @@ export default {
   },
   methods: {
     setShowNextStep () {
-      this.isHasValue = false
+      this.isClicked = true
+      this.$router.push({ name: 'JoinPage2' })
+      this.$store.dispatch('setChageHasValue').then(() => {
+        this.isClicked = false
+      })
     },
     setSave () {
       let changeIndex = this.$store.getters.getChangeIndex

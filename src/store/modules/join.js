@@ -73,7 +73,8 @@ export default {
     },
     isPopup: false,
     popupValue: '',
-    changeIndex: undefined
+    changeIndex: undefined,
+    join3Value: false
   },
   // getters
   getters: {
@@ -109,6 +110,9 @@ export default {
     },
     getChangeIndex (state) {
       return state.changeIndex
+    },
+    getJoin3Value (state) {
+      return state.join3Value
     }
   },
   // mutations
@@ -220,6 +224,9 @@ export default {
     },
     setFirstList (state) {
       state.isFirstList = true
+    },
+    setJoinValue (state) {
+      state.join3Value = true
     }
   },
   // actions
@@ -286,6 +293,9 @@ export default {
     // 리스트에 값이 처음인지 확인
     setFirstList ({commit}) {
       commit('setFirstList')
+    },
+    setJoinValue ({ commit }) {
+      commit('setJoinValue')
     }
   }
 }

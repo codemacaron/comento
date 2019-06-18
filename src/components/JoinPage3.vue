@@ -6,10 +6,10 @@
         C-Listcomponent
         | 이(가) 뛰어나다는 것을 아래와 같이 정의하고 있습니다.
       .data-area(v-html="getEdit.content")
-      .group-btn(v-show="!isHasValue")
-        button.next(type="button" @click="setNextPage()") 수정하기
+      .group-btn(v-show="!getJoin3Value")
+        button.next(type="button" @click="setNextPage()") 이전단계
         button.prev(type="button" @click="setShowNextStep()") 다음단계
-    .cover(v-show="isHasValue")
+    .cover(v-show="getJoin3Value")
       C-Write
       C-Listadvantage
 </template>
@@ -25,7 +25,6 @@ export default {
   data () {
     return {
       isClicked: false,
-      isHasValue: false,
       onlyOne: false
     }
   },
@@ -37,7 +36,8 @@ export default {
   computed: {
     ...mapGetters([
       'getIsHasValue',
-      'getEdit'
+      'getEdit',
+      'getJoin3Value'
     ])
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
       })
     },
     setShowNextStep () {
-      this.isHasValue = true
+      this.$store.dispatch('setJoinValue')
     }
   }
 }
