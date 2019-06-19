@@ -80,7 +80,8 @@ export default {
       'asc': true,
       'desc': false,
       'category': 'reset'
-    }
+    },
+    endList: false
   },
   // getters
   getters: {
@@ -192,166 +193,339 @@ export default {
     },
     // 리스트 4번째 마다 광고로 가공하기
     setMakeList (state, payload) {
-      // 오름차순
-      if (payload.asc === true) {
-        switch (payload.category) {
-          case 'reset':
-            if (state.mix.asc.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.asc.push(state.ad.shift(1))
-                } else {
-                  state.mix.asc.push(state.post.asc.shift(1))
+      console.group()
+      console.log('state.endList ::: ', state.endList)
+      console.log('오름차순  ::: ', payload.asc)
+      console.log('카테고리  ::: ', payload.category)
+      console.log('state.post.asc :::', state.post.asc)
+      console.groupEnd()
+      if (state.endList === true) {
+        // 오름차순
+        if (payload.asc === true) {
+          switch (payload.category) {
+            case 'reset':
+              if (state.mix.asc.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.asc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.asc.push(state.post.asc.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.asc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.asc.push(state.post.asc.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.asc.push(state.ad.shift(1))
-                } else {
-                  state.mix.asc.push(state.post.asc.shift(1))
+              break
+            case 'apple':
+              if (state.mix.ascCategory1.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.ascCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.ascCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
+                  }
                 }
               }
-            }
-            break
-          case 'apple':
-            if (state.mix.ascCategory1.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.ascCategory1.push(state.ad.shift(1))
-                } else {
-                  state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
+              break
+            case 'banana':
+              if (state.mix.ascCategory2.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.ascCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.ascCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.ascCategory1.push(state.ad.shift(1))
-                } else {
-                  state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
+              break
+            case 'coconut':
+              if (state.mix.ascCategory3.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.ascCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.ascCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
+                  }
                 }
               }
-            }
-            break
-          case 'banana':
-            if (state.mix.ascCategory2.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.ascCategory2.push(state.ad.shift(1))
-                } else {
-                  state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
+              break
+          }
+        }
+        // 내림차순
+        if (payload.desc === true) {
+          switch (payload.category) {
+            case 'reset':
+              if (state.mix.desc.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.desc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.desc.push(state.post.desc.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.desc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.desc.push(state.post.desc.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.ascCategory2.push(state.ad.shift(1))
-                } else {
-                  state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
+              break
+            case 'apple':
+              if (state.mix.descCategory1.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.descCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory1.push(state.post.descCategory1.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.descCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory1.push(state.post.descCategory1.shift(1))
+                  }
                 }
               }
-            }
-            break
-          case 'coconut':
-            if (state.mix.ascCategory3.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.ascCategory3.push(state.ad.shift(1))
-                } else {
-                  state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
+              break
+            case 'banana':
+              if (state.mix.descCategory2.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.descCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory2.push(state.post.descCategory2.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.descCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory2.push(state.post.descCategory2.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.ascCategory3.push(state.ad.shift(1))
-                } else {
-                  state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
+              break
+            case 'coconut':
+              if (state.mix.descCategory3.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.descCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory3.push(state.post.descCategory3.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.descCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory3.push(state.post.descCategory3.shift(1))
+                  }
                 }
               }
-            }
-            break
+              break
+          }
         }
       }
-      // 내림차순
-      if (payload.desc === true) {
-        switch (payload.category) {
-          case 'reset':
-            if (state.mix.desc.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.desc.push(state.ad.shift(1))
-                } else {
-                  state.mix.desc.push(state.post.desc.shift(1))
+      if (state.endList === false) {
+        console.log('state.endList ::: ', state.endList)
+        // 오름차순
+        if (payload.asc === true) {
+          switch (payload.category) {
+            case 'reset':
+              if (state.mix.asc.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.asc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.asc.push(state.post.asc.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.asc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.asc.push(state.post.asc.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.desc.push(state.ad.shift(1))
-                } else {
-                  state.mix.desc.push(state.post.desc.shift(1))
+              break
+            case 'apple':
+              if (state.mix.ascCategory1.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.ascCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.ascCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
+                  }
                 }
               }
-            }
-            break
-          case 'apple':
-            if (state.mix.descCategory1.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.descCategory1.push(state.ad.shift(1))
-                } else {
-                  state.mix.descCategory1.push(state.post.descCategory1.shift(1))
+              break
+            case 'banana':
+              if (state.mix.ascCategory2.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.ascCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.ascCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.descCategory1.push(state.ad.shift(1))
-                } else {
-                  state.mix.descCategory1.push(state.post.descCategory1.shift(1))
+              break
+            case 'coconut':
+              if (state.mix.ascCategory3.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.ascCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.ascCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
+                  }
                 }
               }
-            }
-            break
-          case 'banana':
-            if (state.mix.descCategory2.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.descCategory2.push(state.ad.shift(1))
-                } else {
-                  state.mix.descCategory2.push(state.post.descCategory2.shift(1))
+              break
+          }
+        }
+        // 내림차순
+        if (payload.desc === true) {
+          switch (payload.category) {
+            case 'reset':
+              if (state.mix.desc.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.desc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.desc.push(state.post.desc.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.desc.push(state.ad.shift(1))
+                  } else {
+                    state.mix.desc.push(state.post.desc.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.descCategory2.push(state.ad.shift(1))
-                } else {
-                  state.mix.descCategory2.push(state.post.descCategory2.shift(1))
+              break
+            case 'apple':
+              if (state.mix.descCategory1.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.descCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory1.push(state.post.descCategory1.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.descCategory1.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory1.push(state.post.descCategory1.shift(1))
+                  }
                 }
               }
-            }
-            break
-          case 'coconut':
-            if (state.mix.descCategory3.length === 0 || state.listNum % 2 === 0) {
-              for (let i = 0; i < 10; i++) {
-                if (i === 3 || i === 7) {
-                  state.mix.descCategory3.push(state.ad.shift(1))
-                } else {
-                  state.mix.descCategory3.push(state.post.descCategory3.shift(1))
+              break
+            case 'banana':
+              if (state.mix.descCategory2.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.descCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory2.push(state.post.descCategory2.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.descCategory2.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory2.push(state.post.descCategory2.shift(1))
+                  }
                 }
               }
-            } else {
-              for (let i = 0; i < 10; i++) {
-                if (i === 1 || i === 5 || i === 9) {
-                  state.mix.descCategory3.push(state.ad.shift(1))
-                } else {
-                  state.mix.descCategory3.push(state.post.descCategory3.shift(1))
+              break
+            case 'coconut':
+              if (state.mix.descCategory3.length === 0 || state.listNum % 2 === 0) {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 3 || i === 7) {
+                    state.mix.descCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory3.push(state.post.descCategory3.shift(1))
+                  }
+                }
+              } else {
+                for (let i = 0; i < 10; i++) {
+                  if (i === 1 || i === 5 || i === 9) {
+                    state.mix.descCategory3.push(state.ad.shift(1))
+                  } else {
+                    state.mix.descCategory3.push(state.post.descCategory3.shift(1))
+                  }
                 }
               }
-            }
-            break
+              break
+          }
         }
       }
     },
@@ -513,6 +687,16 @@ export default {
       } else if (payload === 'noshow') {
         state.loading = false
       }
+    },
+    setEndList (state, payload) {
+      switch (payload) {
+        case true:
+          state.endList = true
+          break
+        case false:
+          state.endList = false
+          break
+      }
     }
   },
   // actions
@@ -654,6 +838,7 @@ export default {
     // 리스트 받아올때 사용하는 Axios
     setListAxios ({dispatch}, payload) {
       axios.get(payload.Api).then((response) => {
+        console.log('response.data.list ::: ', response.data.list)
         if (response.data.list.length > 1) {
           let axiosPayload = {
             'data': response.data,
@@ -668,7 +853,11 @@ export default {
           })
         }
         if (response.data.list.length < 1) {
-          dispatch('setStopList')
+          dispatch('setEndList', true).then(() => {
+            dispatch('setMakeList', payload.filter).then(() => {
+              dispatch('setStopList')
+            })
+          })
         }
       }).catch(error => console.error('실행실패 ::: ', error.message))
     },
@@ -723,6 +912,9 @@ export default {
     // 리스트 로딩
     setLoading ({commit}, payload) {
       commit('setLoading', payload)
+    },
+    setEndList ({commit}, payload) {
+      commit('setEndList', payload)
     }
   }
 }
