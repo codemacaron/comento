@@ -3,6 +3,7 @@
     h1.a11y-hidden 리스트
     ul(v-show="getMixList !== []")
       li(v-for="(post, index) in getMixList")
+        p {{getCanDoit}}
         .cover(v-if="post !== undefined")
           .link-list(v-if="0 !== (index+1)%4 || index === 0")
             h2(v-show="post.category_no === '1' || post.category_no === 1") Apple
@@ -52,7 +53,8 @@ export default {
   computed: {
     ...mapGetters([
       'getMixList',
-      'getSortValue'
+      'getSortValue',
+      'getCanDoit'
     ])
   },
   methods: {
@@ -72,7 +74,8 @@ export default {
     },
     // 페이지 맨 아래라면 리스트 불러오기
     infiniteScroll () {
-      let i = 1
+      // 연속으로 불러오지 않게 하는 기능 추가 작업 중
+      // if (!this.$store.getters.setCanDoit) {
       let stateGetMixList = this.$store.getters.getMixList
       if (stateGetMixList.length === 0) {
         window.addEventListener('scroll', () => {
@@ -81,29 +84,31 @@ export default {
           if (this.bottom === true && stategetChangePage === false) {
             this.updateListAll('lists')
           }
-          i = i + 1
         })
       }
+      // }
     },
     saveLocalStorage () {
       localStorage.getMixList = this.$store.getters.getMixList
     },
     // 리스트 불러오기
     updateListAll (payload) {
-      this.$store.dispatch('setLoading', 'show')
-      let stategGtTextWhatIsPost = this.$store.getters.getTextWhatIsPost
-      let updateListAllPayload = {
-        'type': payload,
-        // 객체로 보냄
-        'whatIsPost': stategGtTextWhatIsPost
-      }
-      this.$store.dispatch('setLists', updateListAllPayload).then(() => {
-        setTimeout(() => {
-          this.$store.dispatch('setMixPost', updateListAllPayload.whatIsPost)
-          this.$store.dispatch('setLoading', 'noshow')
-        }, 2000)
+      this.$store.dispatch('setCanDoit').then(() => {
+        this.$store.dispatch('setLoading', 'show')
+        let stategGtTextWhatIsPost = this.$store.getters.getTextWhatIsPost
+        let updateListAllPayload = {
+          'type': payload,
+          // 객체로 보냄
+          'whatIsPost': stategGtTextWhatIsPost
+        }
+        this.$store.dispatch('setLists', updateListAllPayload).then(() => {
+          setTimeout(() => {
+            this.$store.dispatch('setMixPost', updateListAllPayload.whatIsPost)
+            this.$store.dispatch('setLoading', 'noshow')
+          }, 2000)
+        })
+        this.saveLocalStorage()
       })
-      this.saveLocalStorage()
     }
   },
   created () {

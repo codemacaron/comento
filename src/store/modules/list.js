@@ -9,7 +9,8 @@ export default {
     adState: true,
     filterState: true,
     // 리스트 불러올 넘버
-    listNum: 1,
+    listNum: 99,
+    listsNum: 99,
     // 광고 리스트 불러올 넘버
     adListNum: 1,
     // 광고 리스트 중에 몇개를 가져올지 정하는 숫자
@@ -75,13 +76,18 @@ export default {
     whatIsPost: {},
     // 리스트를 더이상 가져올 수 없으면 false가 된다.
     stopList: true,
+    // 로딩 관련
     loading: false,
+    // 어떤 포스트를 가져와야 할지에 대한 기본 값
     textWhatIsPost: {
       'asc': true,
       'desc': false,
       'category': 'reset'
     },
-    endList: false
+    // 마지막 리스트인지 감지
+    endList: false,
+    // 인피니티 스크롤 감지
+    canDoit: true
   },
   // getters
   getters: {
@@ -117,11 +123,17 @@ export default {
     getSortValue (state) {
       return state.sort
     },
+    // 리스트를 더이상 불러오지 않음
     getStopList (state) {
       return state.stopList
     },
+    // 로딩 감지
     getLoading (state) {
       return state.loading
+    },
+    // 인피니티 스크롤 실행 감지
+    getCanDoit (state) {
+      return state.canDoit
     }
   },
   // mutations
@@ -193,339 +205,248 @@ export default {
     },
     // 리스트 4번째 마다 광고로 가공하기
     setMakeList (state, payload) {
-      console.group()
-      console.log('state.endList ::: ', state.endList)
-      console.log('오름차순  ::: ', payload.asc)
-      console.log('카테고리  ::: ', payload.category)
-      console.log('state.post.asc :::', state.post.asc)
-      console.groupEnd()
-      if (state.endList === true) {
-        // 오름차순
-        if (payload.asc === true) {
-          switch (payload.category) {
-            case 'reset':
-              if (state.mix.asc.length === 0 || state.listNum % 2 === 0) {
+      // 리스트의 값을 불러오는게 끝이 난 후에 남은 리스트를 하기 위한 카운트
+      state.listsNum += 1
+      // 오름차순
+      if (payload.asc === true) {
+        switch (payload.category) {
+          case 'reset':
+            if (state.post.asc.length !== 0) {
+              if (state.mix.asc.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.asc[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.asc.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.asc.push(state.post.asc.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.asc[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.asc.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.asc.push(state.post.asc.shift(1))
                   }
                 }
               }
-              break
-            case 'apple':
-              if (state.mix.ascCategory1.length === 0 || state.listNum % 2 === 0) {
+            }
+            break
+          case 'apple':
+            if (state.post.ascCategory1.length !== 0) {
+              if (state.mix.ascCategory1.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.ascCategory1[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.ascCategory1.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.ascCategory1[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.ascCategory1.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
                   }
                 }
               }
-              break
-            case 'banana':
-              if (state.mix.ascCategory2.length === 0 || state.listNum % 2 === 0) {
+            }
+            break
+          case 'banana':
+            if (state.post.ascCategory2.length !== 0) {
+              if (state.mix.ascCategory2.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.ascCategory2[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.ascCategory2.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.ascCategory2[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.ascCategory2.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
                   }
                 }
               }
-              break
-            case 'coconut':
-              if (state.mix.ascCategory3.length === 0 || state.listNum % 2 === 0) {
+            }
+            break
+          case 'coconut':
+            if (state.post.ascCategory3.length !== 0) {
+              if (state.mix.ascCategory3.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.ascCategory3[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.ascCategory3.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.ascCategory3[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.ascCategory3.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
                   }
                 }
               }
-              break
-          }
-        }
-        // 내림차순
-        if (payload.desc === true) {
-          switch (payload.category) {
-            case 'reset':
-              if (state.mix.desc.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.desc.push(state.ad.shift(1))
-                  } else {
-                    state.mix.desc.push(state.post.desc.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.desc.push(state.ad.shift(1))
-                  } else {
-                    state.mix.desc.push(state.post.desc.shift(1))
-                  }
-                }
-              }
-              break
-            case 'apple':
-              if (state.mix.descCategory1.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.descCategory1.push(state.ad.shift(1))
-                  } else {
-                    state.mix.descCategory1.push(state.post.descCategory1.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.descCategory1.push(state.ad.shift(1))
-                  } else {
-                    state.mix.descCategory1.push(state.post.descCategory1.shift(1))
-                  }
-                }
-              }
-              break
-            case 'banana':
-              if (state.mix.descCategory2.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.descCategory2.push(state.ad.shift(1))
-                  } else {
-                    state.mix.descCategory2.push(state.post.descCategory2.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.descCategory2.push(state.ad.shift(1))
-                  } else {
-                    state.mix.descCategory2.push(state.post.descCategory2.shift(1))
-                  }
-                }
-              }
-              break
-            case 'coconut':
-              if (state.mix.descCategory3.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.descCategory3.push(state.ad.shift(1))
-                  } else {
-                    state.mix.descCategory3.push(state.post.descCategory3.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.descCategory3.push(state.ad.shift(1))
-                  } else {
-                    state.mix.descCategory3.push(state.post.descCategory3.shift(1))
-                  }
-                }
-              }
-              break
-          }
+            }
+            break
         }
       }
-      if (state.endList === false) {
-        console.log('state.endList ::: ', state.endList)
-        // 오름차순
-        if (payload.asc === true) {
-          switch (payload.category) {
-            case 'reset':
-              if (state.mix.asc.length === 0 || state.listNum % 2 === 0) {
+      // 내림차순
+      if (payload.desc === true) {
+        switch (payload.category) {
+          case 'reset':
+            if (state.post.desc.length !== 0) {
+              if (state.mix.desc.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.asc.push(state.ad.shift(1))
-                  } else {
-                    state.mix.asc.push(state.post.asc.shift(1))
+                  if (state.post.desc[0] === undefined) {
+                    state.stopList = false
+                    break
                   }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.asc.push(state.ad.shift(1))
-                  } else {
-                    state.mix.asc.push(state.post.asc.shift(1))
-                  }
-                }
-              }
-              break
-            case 'apple':
-              if (state.mix.ascCategory1.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.ascCategory1.push(state.ad.shift(1))
-                  } else {
-                    state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.ascCategory1.push(state.ad.shift(1))
-                  } else {
-                    state.mix.ascCategory1.push(state.post.ascCategory1.shift(1))
-                  }
-                }
-              }
-              break
-            case 'banana':
-              if (state.mix.ascCategory2.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.ascCategory2.push(state.ad.shift(1))
-                  } else {
-                    state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.ascCategory2.push(state.ad.shift(1))
-                  } else {
-                    state.mix.ascCategory2.push(state.post.ascCategory2.shift(1))
-                  }
-                }
-              }
-              break
-            case 'coconut':
-              if (state.mix.ascCategory3.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 3 || i === 7) {
-                    state.mix.ascCategory3.push(state.ad.shift(1))
-                  } else {
-                    state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
-                  }
-                }
-              } else {
-                for (let i = 0; i < 10; i++) {
-                  if (i === 1 || i === 5 || i === 9) {
-                    state.mix.ascCategory3.push(state.ad.shift(1))
-                  } else {
-                    state.mix.ascCategory3.push(state.post.ascCategory3.shift(1))
-                  }
-                }
-              }
-              break
-          }
-        }
-        // 내림차순
-        if (payload.desc === true) {
-          switch (payload.category) {
-            case 'reset':
-              if (state.mix.desc.length === 0 || state.listNum % 2 === 0) {
-                for (let i = 0; i < 10; i++) {
                   if (i === 3 || i === 7) {
                     state.mix.desc.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.desc.push(state.post.desc.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.desc[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.desc.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.desc.push(state.post.desc.shift(1))
                   }
                 }
               }
-              break
-            case 'apple':
-              if (state.mix.descCategory1.length === 0 || state.listNum % 2 === 0) {
+            }
+            break
+          case 'apple':
+            if (state.post.descCategory1.length !== 0) {
+              if (state.mix.descCategory1.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.descCategory1[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.descCategory1.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.descCategory1.push(state.post.descCategory1.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.descCategory1[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.descCategory1.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.descCategory1.push(state.post.descCategory1.shift(1))
                   }
                 }
               }
-              break
-            case 'banana':
-              if (state.mix.descCategory2.length === 0 || state.listNum % 2 === 0) {
+            }
+            break
+          case 'banana':
+            if (state.post.descCategory2.length !== 0) {
+              if (state.mix.descCategory2.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.descCategory2[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.descCategory2.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.descCategory2.push(state.post.descCategory2.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.descCategory2[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.descCategory2.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.descCategory2.push(state.post.descCategory2.shift(1))
                   }
                 }
               }
-              break
-            case 'coconut':
-              if (state.mix.descCategory3.length === 0 || state.listNum % 2 === 0) {
+            }
+            break
+          case 'coconut':
+            if (state.post.descCategory3.length !== 0) {
+              if (state.mix.descCategory3.length === 0 || state.listsNum % 2 === 0) {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.descCategory3[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 3 || i === 7) {
                     state.mix.descCategory3.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 3 || i !== 7) {
                     state.mix.descCategory3.push(state.post.descCategory3.shift(1))
                   }
                 }
               } else {
                 for (let i = 0; i < 10; i++) {
+                  if (state.post.descCategory3[0] === undefined) {
+                    state.stopList = false
+                    break
+                  }
                   if (i === 1 || i === 5 || i === 9) {
                     state.mix.descCategory3.push(state.ad.shift(1))
-                  } else {
+                  } else if (i !== 1 || i !== 5 || i !== 9) {
                     state.mix.descCategory3.push(state.post.descCategory3.shift(1))
                   }
                 }
               }
-              break
-          }
+            }
+            break
         }
       }
     },
@@ -635,12 +556,20 @@ export default {
             break
         }
       }
+      // 모든 값이 다 들어간 후 인피니티 스크롤 감지 가능
+      state.canDoit = true
     },
     // 필터나 오더가 바뀔 때 리셋
     setResetList (state) {
       state.stopList = true
       state.textState = true
+      // 페이지 수 리셋
       state.listNum = 1
+      state.listsNum = 1
+      // 마지막 리스트 감지 리셋
+      state.endList = false
+      // 인피니티 스크롤 감지 리셋
+      state.canDoit = true
       // 광고
       state.ad = []
       // 리스트
@@ -668,10 +597,6 @@ export default {
     setResetAdNum (state) {
       state.adListNum = 1
     },
-    // 리스트가 더이상 없을 때, 실행한다.
-    setStopList (state) {
-      state.stopList = false
-    },
     // 페이지 이동
     setChangePage (state, payload) {
       if (payload) {
@@ -688,6 +613,7 @@ export default {
         state.loading = false
       }
     },
+    // 리스트의 마지막 감지
     setEndList (state, payload) {
       switch (payload) {
         case true:
@@ -697,6 +623,9 @@ export default {
           state.endList = false
           break
       }
+    },
+    setCanDoit (state) {
+      state.canDoit = false
     }
   },
   // actions
@@ -838,7 +767,6 @@ export default {
     // 리스트 받아올때 사용하는 Axios
     setListAxios ({dispatch}, payload) {
       axios.get(payload.Api).then((response) => {
-        console.log('response.data.list ::: ', response.data.list)
         if (response.data.list.length > 1) {
           let axiosPayload = {
             'data': response.data,
@@ -854,9 +782,7 @@ export default {
         }
         if (response.data.list.length < 1) {
           dispatch('setEndList', true).then(() => {
-            dispatch('setMakeList', payload.filter).then(() => {
-              dispatch('setStopList')
-            })
+            dispatch('setMakeList', payload.filter)
           })
         }
       }).catch(error => console.error('실행실패 ::: ', error.message))
@@ -901,10 +827,6 @@ export default {
     setResetAdNum ({commit}) {
       commit('setResetAdNum')
     },
-    // 리스트가 더이상 없을 때, 실행한다.
-    setStopList ({commit}) {
-      commit('setStopList')
-    },
     // 페이지 이동
     setChangePage ({commit}, payload) {
       commit('setChangePage', payload)
@@ -913,8 +835,12 @@ export default {
     setLoading ({commit}, payload) {
       commit('setLoading', payload)
     },
+    // 리스트 마지막 감지
     setEndList ({commit}, payload) {
       commit('setEndList', payload)
+    },
+    setCanDoit ({commit}) {
+      commit('setCanDoit')
     }
   }
 }
