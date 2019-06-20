@@ -9,8 +9,8 @@ export default {
     adState: true,
     filterState: true,
     // 리스트 불러올 넘버
-    listNum: 99,
-    listsNum: 99,
+    listNum: 1,
+    listsNum: 1,
     // 광고 리스트 불러올 넘버
     adListNum: 1,
     // 광고 리스트 중에 몇개를 가져올지 정하는 숫자
