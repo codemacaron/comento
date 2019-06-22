@@ -3,7 +3,6 @@
     h1.a11y-hidden 리스트
     ul(v-show="getMixList !== []")
       li(v-for="(post, index) in getMixList")
-        p {{getCanDoit}}
         .cover(v-if="post !== undefined")
           .link-list(v-if="0 !== (index+1)%4 || index === 0")
             h2(v-show="post.category_no === '1' || post.category_no === 1") Apple
@@ -53,8 +52,7 @@ export default {
   computed: {
     ...mapGetters([
       'getMixList',
-      'getSortValue',
-      'getCanDoit'
+      'getSortValue'
     ])
   },
   methods: {
@@ -66,16 +64,17 @@ export default {
     },
     // 페이지의 맨 아래인지 확인하는 부분
     bottomVisible () {
-      var scrollY = window.pageYOffset
-      var visible = document.documentElement.clientHeight
-      var pageHeight = document.documentElement.scrollHeight
-      var bottomOfPage = visible + scrollY >= pageHeight
-      return bottomOfPage || pageHeight < visible
+      if (this.$store.getters.getCanDoit) {
+        var scrollY = window.pageYOffset
+        var visible = document.documentElement.clientHeight
+        var pageHeight = document.documentElement.scrollHeight
+        var bottomOfPage = visible + scrollY >= pageHeight
+        return bottomOfPage || pageHeight < visible
+      }
     },
     // 페이지 맨 아래라면 리스트 불러오기
     infiniteScroll () {
       // 연속으로 불러오지 않게 하는 기능 추가 작업 중
-      // if (!this.$store.getters.setCanDoit) {
       let stateGetMixList = this.$store.getters.getMixList
       if (stateGetMixList.length === 0) {
         window.addEventListener('scroll', () => {
@@ -86,7 +85,6 @@ export default {
           }
         })
       }
-      // }
     },
     saveLocalStorage () {
       localStorage.getMixList = this.$store.getters.getMixList

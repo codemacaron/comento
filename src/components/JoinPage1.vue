@@ -87,7 +87,7 @@ ul {
     }
     input:checked {
       &::before {
-        content: "∨";
+        content: '✓';
       }
     }
   }

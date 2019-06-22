@@ -294,33 +294,29 @@ button {
 }
 input[type="radio"] {
   position: relative;
-  width: 23px;
-  height: 23px;
-  line-height: 23px;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
   margin-right: 0px;
   vertical-align: middle;
+  margin-right: 10px;
   &:focus {
     outline: 0 none;
   }
   &::before {
-    content: "○";
-    position: absolute;
-    left: 0;
-    top: 0;
+    content: '';
     display: block;
-    width: 23px;
-    height: 23px;
-    line-height: 27px;
-    // border: $border;
-    // border-radius: 100% 100%;
-    background: #ffffff;
-    font-size: $font-m;
-    text-align: center;
-    color: $color-point;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background: #f37878;
   }
   &:checked {
     &::before {
-      content: "◎";
+      background: #fff;
+      border: 7px solid #f37878;
     }
   }
 }
